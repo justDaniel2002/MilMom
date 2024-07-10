@@ -1,0 +1,26 @@
+{
+  "ExpandedNodes": [
+    "",
+<<<<<<< Updated upstream
+=======
+    "\\MilmomStore.Server",
+    "\\MilmomStore.Server\\Controllers",
+>>>>>>> Stashed changes
+    "\\MilmomStore_BusinessObject",
+    "\\MilmomStore_BusinessObject\\Model",
+    "\\Milmom_Service",
+    "\\Milmom_Service\\IService",
+    "\\Milmom_Service\\Model",
+    "\\Milmom_Service\\Model\\Response",
+    "\\Milmom_Service\\Model\\Response\\AccountApplication",
+    "\\Milmom_Service\\Model\\Response\\ImageProduct",
+    "\\Milmom_Service\\Model\\Response\\Product",
+    "\\Milmom_Service\\Service"
+  ],
+<<<<<<< Updated upstream
+  "SelectedNode": "\\Milmom_Service\\Service\\ProductService.cs",
+=======
+  "SelectedNode": "\\MilmomStore.Server\\Controllers\\ProductController.cs",
+>>>>>>> Stashed changes
+  "PreviewInSolutionExplorer": false
+}

@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MilmomStore.Server", "MilmomStore.Server\MilmomStore.Server.csproj", "{D5FE2958-226B-4B5D-BCE3-F3F89EC37DB5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MilmomStore_BusinessObject", "MilmomStore_BusinessObject\MilmomStore_BusinessObject.csproj", "{9EE16516-0D63-4CF5-BA5E-62DAC4A2DFFF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MilmomStore_DataAccessObject", "MilmomStore_DataAccessObject\MilmomStore_DataAccessObject.csproj", "{28F113E0-DA3F-4862-966F-130AEA632B1D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Milmom_Repository", "Milmom_Repository\Milmom_Repository.csproj", "{F979A494-FD37-4B0A-89EB-E94E407B6243}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Milmom_Service", "Milmom_Service\Milmom_Service.csproj", "{A7D684B3-1D98-4465-BE9C-BDC39293178B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D5FE2958-226B-4B5D-BCE3-F3F89EC37DB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5FE2958-226B-4B5D-BCE3-F3F89EC37DB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5FE2958-226B-4B5D-BCE3-F3F89EC37DB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5FE2958-226B-4B5D-BCE3-F3F89EC37DB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EE16516-0D63-4CF5-BA5E-62DAC4A2DFFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EE16516-0D63-4CF5-BA5E-62DAC4A2DFFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EE16516-0D63-4CF5-BA5E-62DAC4A2DFFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EE16516-0D63-4CF5-BA5E-62DAC4A2DFFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28F113E0-DA3F-4862-966F-130AEA632B1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28F113E0-DA3F-4862-966F-130AEA632B1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28F113E0-DA3F-4862-966F-130AEA632B1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28F113E0-DA3F-4862-966F-130AEA632B1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F979A494-FD37-4B0A-89EB-E94E407B6243}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F979A494-FD37-4B0A-89EB-E94E407B6243}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F979A494-FD37-4B0A-89EB-E94E407B6243}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F979A494-FD37-4B0A-89EB-E94E407B6243}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7D684B3-1D98-4465-BE9C-BDC39293178B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7D684B3-1D98-4465-BE9C-BDC39293178B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7D684B3-1D98-4465-BE9C-BDC39293178B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7D684B3-1D98-4465-BE9C-BDC39293178B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {35054FB1-505E-4AD6-BF8A-98ACD8E6B81B}
+	EndGlobalSection
+EndGlobal

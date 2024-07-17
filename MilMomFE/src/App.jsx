@@ -35,6 +35,11 @@ import StatisticalProduct from "./pages/Admin/StatisticalProduct";
 import ManagerLayout from "./layouts/managerLayout";
 import ProductManager from "./pages/Manager/ProductManager";
 import CreateProduct from "./pages/Manager/CreateProduct";
+import ProfileLayout from "./layouts/profileLayout";
+import Profile from "./pages/Profile";
+import ProfileEdit from "./pages/ProfileEdit";
+import ChangePassword from "./pages/ChangePassword";
+import ProfileOrder from "./pages/ProfileOrder";
 function App() {
   const [provines, setProvines] = useRecoilState(provinesAtom);
 
@@ -68,6 +73,12 @@ function App() {
 
           <Route element={<ProtectedLayout />}>
             <Route path="cart" element={<Cart />} />
+            <Route path="profile" element={<ProfileLayout />}>
+              <Route index element={<Profile />} />
+              <Route path="editProfile" element={<ProfileEdit />} />
+              <Route path="editPassword" element={<ChangePassword />} />
+              <Route path="order" element={<ProfileOrder />} />
+            </Route>
           </Route>
         </Route>
 
@@ -76,20 +87,20 @@ function App() {
         </Route>
 
         <Route element={<AdminLayout />}>
-          <Route path="dashboard" element={<Dashboard />}/>
-          <Route path="userManager" element={<UserManager />}/>
-          <Route path="revenueManager" element={<RevenueManager />}/>
-          <Route path="statisticalProduct" element={<StatisticalProduct />}/>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="userManager" element={<UserManager />} />
+          <Route path="revenueManager" element={<RevenueManager />} />
+          <Route path="statisticalProduct" element={<StatisticalProduct />} />
         </Route>
 
         <Route element={<StaffLayout />}>
-          <Route path="orderManager" element={<OrderManager />}/>
-          <Route path="reportHandle" element={<ReportManager />}/>
+          <Route path="orderManager" element={<OrderManager />} />
+          <Route path="reportHandle" element={<ReportManager />} />
         </Route>
 
         <Route element={<ManagerLayout />}>
-          <Route path="productManager" element={<ProductManager />}/>
-          <Route path="createProduct" element={<CreateProduct />}/>
+          <Route path="productManager" element={<ProductManager />} />
+          <Route path="createProduct" element={<CreateProduct />} />
         </Route>
       </Route>
     )

@@ -22,7 +22,7 @@ namespace MilmomStore.Server.Controllers
             _productService = productService;
         }
 
-        /*[Authorize(Roles = "Manager")]*/
+        [Authorize(Roles = "Manager")]
         [HttpGet]
         [Route("GetForManagement")]
         public async Task<ActionResult<BaseResponse<IEnumerable<GetAllProductsForManagerResponse>>>> GetAllProductsForManager()
@@ -38,7 +38,7 @@ namespace MilmomStore.Server.Controllers
             return await _productService.GetProductByIdFromBase(id);
         }
 
-        /*[Authorize(Roles = "Manager")]*/
+        [Authorize(Roles = "Manager")]
         [HttpDelete]
         [Route("{id}")]
         public async Task<ActionResult<BaseResponse<Product>>> DeleteProduct(int id)
@@ -59,7 +59,7 @@ namespace MilmomStore.Server.Controllers
             return Ok(new { message = "Delete successful" });
         }
 
-        /*[Authorize(Roles = "Manager")]*/
+        [Authorize(Roles = "Manager")]
         [HttpPut]
         [Route("UpdateForManagement")]
         public async Task<ActionResult<BaseResponse<UpdateProductRequest>>> UpdateProductFromBase(int id,
@@ -68,7 +68,7 @@ namespace MilmomStore.Server.Controllers
             return await _productService.UpdateProductFromBase(id, product);
         }
 
-       /* [Authorize(Roles = "Manager")]*/
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [Route("AddForManagement")]
         public async Task<ActionResult<BaseResponse<AddProductRequest>>> CreateProductFromBase([FromBody] AddProductRequest request)
@@ -85,6 +85,7 @@ namespace MilmomStore.Server.Controllers
             return await _productService.GetProductsAsync(search, lowPrice, highPrice, category, sortBy, pageIndex, pageSize);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("base/GetTopProductInMonth")]
         public async Task<BaseResponse<List<GetTopProductSoldInAMonth>>> GetTopProductsSoldInMonthAsync(int top)
@@ -93,6 +94,7 @@ namespace MilmomStore.Server.Controllers
             return result;
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpGet]
         [Route("base/getProductsForManager")]
         public async Task<BaseResponse<SearchProductResponse>> SearchProductAsync(string? search, int pageIndex, int pageSize)

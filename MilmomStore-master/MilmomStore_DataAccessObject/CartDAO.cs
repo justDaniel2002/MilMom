@@ -15,6 +15,14 @@ public class CartDAO : BaseDAO<Cart>
     //
     public async Task AddToCart(string accountId, int productId)
     {
+        if (accountId == null)
+        {
+            throw new ArgumentNullException($"id {accountId} not found");
+        }
+        if (productId == null || productId <= 0)
+        {
+            throw new ArgumentNullException($"id {productId} not found");
+        }
         var cart = await _context.Carts
             .Include(c => c.CartItem)
             .FirstOrDefaultAsync(c => c.AccountID == accountId);
@@ -42,6 +50,14 @@ public class CartDAO : BaseDAO<Cart>
 
     public async Task RemoveFromCart(string accountId, int productId)
     {
+        if (string.IsNullOrEmpty(accountId))
+        {
+            throw new ArgumentException("Account ID is required.", nameof(accountId));
+        }
+        if (productId <= 0)
+        {
+            throw new ArgumentException("Product ID must be greater than zero.", nameof(productId));
+        }
         var cart = await _context.Carts
             .Include(c => c.CartItem)
             .FirstOrDefaultAsync(c => c.AccountID == accountId);
@@ -68,7 +84,11 @@ public class CartDAO : BaseDAO<Cart>
 
     public async Task<Cart?> GetCart(string accountId)
     {
-        
+        if (string.IsNullOrEmpty(accountId))
+        {
+            throw new ArgumentException("Account ID is required.", nameof(accountId));
+        }
+
         return await _context.Carts
             .Include(c => c.CartItem)
             .Include(ci => ci.CartItem)
@@ -79,7 +99,11 @@ public class CartDAO : BaseDAO<Cart>
     }
     public async Task<double> GetAmount(string accountId)
 {
-    var cart = await _context.Carts
+        if (string.IsNullOrEmpty(accountId))
+        {
+            throw new ArgumentException("Account ID is required.", nameof(accountId));
+        }
+        var cart = await _context.Carts
         .Include(c => c.CartItem)
         .ThenInclude(ci => ci.Product)
         .FirstOrDefaultAsync(c => c.AccountID == accountId);
@@ -99,7 +123,11 @@ public class CartDAO : BaseDAO<Cart>
 }
 
     public async Task ClearCart(string accountId)
-    {       
+    {
+        if (string.IsNullOrEmpty(accountId))
+        {
+            throw new ArgumentException("Account ID is required.", nameof(accountId));
+        }
         var cart = await _context.Carts
             .Include(c => c.CartItem)
             .FirstOrDefaultAsync(c => c.AccountID == accountId);

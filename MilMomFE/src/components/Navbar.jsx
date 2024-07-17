@@ -49,13 +49,14 @@ const Navbar = () => {
         <Icon icon="tabler:bell-ringing-2-filled" className="text-3xl" />
         {account ? (
           <>
-          <div className="w-1/12">
+          <Link to={"/profile"} className="block w-1/12">
             <img src={blankAvatar} className="rounded-full" />
-          </div>
+          </Link>
            <MilMomBtn
            onClick={() => {
             localStorage.removeItem('account')
             setAccount(undefined)
+            navigate("/")
            }}
            className="rounded-md"
            content="Đăng xuất"

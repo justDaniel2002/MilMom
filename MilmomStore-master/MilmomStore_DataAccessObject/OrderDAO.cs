@@ -121,7 +121,10 @@ public class OrderDAO : BaseDAO<Order>
 
         // Xác định ngày đầu tuần (ngày thứ Hai là ngày đầu tuần)
         DateTime startOfWeek = today.AddDays(-(int)today.DayOfWeek + (int)DayOfWeek.Monday);
-
+        if (today.DayOfWeek == DayOfWeek.Sunday)
+        {
+            startOfWeek = startOfWeek.AddDays(-7);
+        }
         // Xác định ngày cuối tuần (ngày Chủ nhật là ngày cuối tuần)
         DateTime endOfWeek = startOfWeek.AddDays(6);
 
@@ -274,6 +277,10 @@ public class OrderDAO : BaseDAO<Order>
     public async Task<List<(object span, int totalOrders, double totalOrdersAmount)>> GetTotalOrdersTotalOrdersAmountAsync
         (DateTime startDate, DateTime endDate, string? timeSpanType)
     {
+        if(startDate > endDate)
+        {
+            throw new ArgumentException($"startDate <= endDate");
+        }
         List<(object span, int totalOrders, double totalOrdersAmount)> result = new List<(object, int, double)>();
 
         switch (timeSpanType?.ToLower())

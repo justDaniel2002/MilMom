@@ -26,11 +26,20 @@ namespace MilmomStore_DataAccessObject
         }
         public async Task<Category> GetByIdAsync(int id)
         {
-            return await _context.Set<Category>()
+            if (id <= 0)
+            {
+                throw new ArgumentNullException($"id {id} not found");
+            }
+             var entity = await _context.Set<Category>()
                 .SingleOrDefaultAsync(c => c.CategoryID == id);
+            if (entity == null)
+            {
+                throw new ArgumentNullException($"Entity with id {id} not found");
+            }
+            return entity;
         }
 
-        public async Task<IEnumerable<Category>> SearchCategoryAsync(string search, int pageIndex, int pageSize)
+        public async Task<IEnumerable<Category>> SearchCategoryAsync(string? search, int pageIndex, int pageSize)
         {
             IQueryable<Category> searchCategories = _context.Categories;
 

@@ -17,6 +17,6 @@ namespace Milmom_Service.IService
         Task<BaseResponse<GetAllCategoryResponse>> GetCategoryDetailByIdFromBase(int id);
         Task<BaseResponse<UpdateCategoryRequest>> UpdateCategoryFromBase(int id, UpdateCategoryRequest categoryRequest);
         Task<BaseResponse<CreateCategoryRequest>> CreateCategoryFromBase( CreateCategoryRequest categoryRequest);
-        Task<BaseResponse<IEnumerable<GetAllCategoryResponse>>> GetSearchCategoryFromBase(string search, int pageIndex, int pageSize);
+        Task<BaseResponse<IEnumerable<GetAllCategoryResponse>>> GetSearchCategoryFromBase(string? search, int pageIndex, int pageSize);
     }
 }

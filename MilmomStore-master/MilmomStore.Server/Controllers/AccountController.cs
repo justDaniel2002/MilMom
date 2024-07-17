@@ -118,7 +118,7 @@ namespace MilmomStore.Server.Controllers
             }
         }
 
-        /*[Authorize(Roles = "Admin")]*/
+        [Authorize(Roles = "Admin")]
         [HttpPost("create account")]
         public async Task<IActionResult> CreateAccount([FromBody] CreateAccountDto createAccountDto)
         {
@@ -194,7 +194,7 @@ namespace MilmomStore.Server.Controllers
             }
         }
 
-        /*[Authorize(Roles = "Admin")]*/
+        [Authorize(Roles = "Admin")]
         [HttpPut("Update-Account")]
         public async Task<IActionResult> UpdateAccount( string userId, [FromBody] UpdateAccountDto updateAccountDto)
         {
@@ -273,7 +273,7 @@ namespace MilmomStore.Server.Controllers
 
         }
 
-        /*[Authorize(Roles = "Admin")]*/
+        [Authorize(Roles = "Admin")]
         [HttpGet("Get-all-accounts")]
         public async Task<IActionResult> GetAllAccounts()
         {
@@ -302,7 +302,7 @@ namespace MilmomStore.Server.Controllers
             }
         }
 
-       /* [Authorize(Roles = "Customer")]*/
+        [Authorize(Roles = "Customer")]
         [HttpPost("Reset-Password-Token")]
         public async Task<IActionResult> ResetPasswordToken([FromBody] ResetTokenModel resetTokenModel)
         {
@@ -315,7 +315,7 @@ namespace MilmomStore.Server.Controllers
             return Ok(new { token = token });
         }
 
-        /*[Authorize(Roles = "Customer")]*/
+        [Authorize(Roles = "Customer")]
         [HttpPost("Reset-Password")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetToken resetToken)
         {
@@ -356,6 +356,37 @@ namespace MilmomStore.Server.Controllers
                 Password = resetToken.Password,
                 ConfirmPassword = resetToken.ConfirmPassword,
                 Token = resetToken.Token,
+            });
+        }
+
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
+        [HttpPost("Change-Password")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordModel changePassword)
+        {
+            var user = await _userManager.FindByNameAsync(changePassword.UserName);
+            if(user == null) 
+            { 
+                return BadRequest("User Not Exist"); 
+            }
+            if (string.Compare(changePassword.NewPassword, changePassword.ConfirmNewPassword) != 0)
+            {
+                return BadRequest("Password and ConfirmPassword doesnot match! ");
+            }
+            var result = await _userManager.ChangePasswordAsync(user, changePassword.CurrentPassword, changePassword.NewPassword);
+            if(!result.Succeeded)
+            {
+                var errors = new List<string>();
+                foreach (var error in result.Errors)
+                {
+                    errors.Add(error.Description);
+                }
+                return StatusCode(500, result.Errors);
+            }
+            return Ok(new UserDto
+            {
+                Username = changePassword.UserName,
+                Password = changePassword.NewPassword,
+                ConfirmPassword = changePassword.ConfirmNewPassword
             });
         }
     }

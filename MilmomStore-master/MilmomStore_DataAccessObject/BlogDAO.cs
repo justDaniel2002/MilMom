@@ -28,10 +28,19 @@ namespace MilmomStore_DataAccessObject
 
         public async Task<Blog> GetBlogByIdAsync(int id)
         {
-            return await _context.Set<Blog>()
+            if (id <= 0)
+            {
+                throw new ArgumentNullException($"id {id} not found");
+            }
+             var entity = await _context.Set<Blog>()
                 .Include(b => b.Account)
                 .Include(b => b.ImageBlogs)
                 .SingleOrDefaultAsync(b => b.BlogID == id);
+            if(entity == null)
+            {
+                throw new ArgumentNullException($"Entity with id {id} not found");
+            }
+            return entity;
         }
 
         public async Task<IEnumerable<Blog>> SearchBlogsAsync(string search, int pageIndex, int pageSize)
@@ -52,6 +61,10 @@ namespace MilmomStore_DataAccessObject
 
         public async Task<bool> DeleteBlog(Blog blog)
         {
+            if (blog == null)
+            {
+                throw new ArgumentNullException(nameof(blog));
+            }
             blog.Status = false;
             int result = await _context.SaveChangesAsync();
             return result > 0;

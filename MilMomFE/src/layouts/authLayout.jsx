@@ -14,7 +14,7 @@ export default function AuthLayout({ width = "w-1/2" }) {
       navigate("/orderManager");
     }  else if (account?.roles.includes("Manager")) {
       navigate("/productManager");
-    }  else{
+    }  else if(account){
       navigate("/");
     }
   });

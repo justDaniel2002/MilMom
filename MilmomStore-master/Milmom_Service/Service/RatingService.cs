@@ -74,6 +74,10 @@ public class RatingService : IRatingService
     public async Task<BaseResponse<IEnumerable<RatingResponse>>> GetRatingByAccountId(string accountId)
     {
         var ratings = await _ratingRepository.GetRatingByAccountId(accountId);
+        if(ratings == null)
+        {
+            return new BaseResponse<IEnumerable<RatingResponse>>("Get Fail", StatusCodeEnum.BadRequest_400, null);
+        }
         var result = _mapper.Map<IEnumerable<RatingResponse>>(ratings);
         return new BaseResponse<IEnumerable<RatingResponse>>("Get done", StatusCodeEnum.OK_200, result);
     }

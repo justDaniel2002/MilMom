@@ -27,7 +27,7 @@ namespace MilmomStore.Server.Controllers
             _orderService = orderService;
         }
 
-        /*[Authorize(Roles = "Manager, Staff")]*/
+        [Authorize(Roles = "Staff")]
         [HttpGet]
         [Route("get-all-reports")]
         public async Task<ActionResult<BaseResponse<IEnumerable<ReportResponse>>>> GetAllReports()
@@ -36,7 +36,7 @@ namespace MilmomStore.Server.Controllers
             return Ok(reports);
         }
 
-        /*[Authorize(Roles = "Manager, Staff")]*/
+        [Authorize(Roles = "Staff")]
         [HttpGet]
         [Route("/search")]
         public async Task<ActionResult<BaseResponse<IEnumerable<ReportResponse>>>> GetSearchReportFromBase(string search, int pageIndex, int pageSize)
@@ -44,7 +44,7 @@ namespace MilmomStore.Server.Controllers
             return await _reportService.GetSearchReportFromBase(search, pageIndex, pageSize);
         }
 
-        /*[Authorize(Roles = "Manager, Staff, Customer")]*/
+        [Authorize(Roles = "Staff, Customer")]
         [HttpGet]
         [Route("get-report-by-id/{id}")]
         public async Task<ActionResult<BaseResponse<ReportResponse>>> GetReportById(int id)
@@ -52,7 +52,7 @@ namespace MilmomStore.Server.Controllers
             return await _reportService.GetReportByIdFromBase(id);
         }
 
-       /* [Authorize(Roles = "Customer")]*/
+        [Authorize(Roles = "Customer")]
         [HttpPost]
         [Route("create-report")]
         public async Task<ActionResult<BaseResponse<ReportResponse>>> CreateReportFromBase([FromForm] CreateReportRequest request)
@@ -80,10 +80,10 @@ namespace MilmomStore.Server.Controllers
             return result;
         }
 
-        /*[Authorize(Roles = "Customer, Staff, Manager")]*/
+        [Authorize(Roles = "Customer, Staff")]
         [HttpDelete]
         [Route("{id}")]
-        public async Task<ActionResult<BaseResponse<Report>>> DeleteProduct(int id)
+        public async Task<ActionResult<BaseResponse<Report>>> DeleteReport(int id)
         {
             var existingProduct = await _reportService.GetReportByIdFromBase(id);
             if (existingProduct == null)
@@ -101,7 +101,7 @@ namespace MilmomStore.Server.Controllers
             return Ok(new { message = "Delete Report Successful" });
         }
 
-        /*[Authorize(Roles = "Customer, Staff, Manager")]*/
+        [Authorize(Roles = "Customer")]
         [HttpPut]
         [Route("update-report")]
         public async Task<ActionResult<BaseResponse<ReportRequestUpdate>>> UpdateReportFromBase(int id,

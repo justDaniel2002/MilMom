@@ -2,11 +2,12 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { memo } from "react";
 import { convertToCustomFormat } from "../helper/helper";
 import MilMomBtn from "./MilMomBtn";
+import { format } from "@cloudinary/url-gen/actions/delivery";
 
 export const userManagerHeader = [
   {
     content: "ID NGƯỜI DÙNG",
-    id: "id",
+    id: "userID",
     width: "w-2/12",
   },
   {
@@ -28,6 +29,13 @@ export const userManagerHeader = [
     content: "VAI TRÒ",
     id: "roleId",
     width: "w-1/12",
+    format: (account) => (
+      <div>
+        {account?.roles?.map((role) => (
+          <span className="mx-3">{role}</span>
+        ))}
+      </div>
+    ),
   },
   {
     content: "TRẠNG THÁI",
@@ -162,7 +170,7 @@ export const statisticalProductTable = [
   },
   {
     content: "Số lượng",
-    id: "quantity",
+    id: "quantitySold",
     width: "w-3/12",
   },
 ];
@@ -182,7 +190,7 @@ export const productManagerHeader = [
     content: "Loại sản phẩm",
     id: "productName",
     width: "w-2/12",
-    format: (product) => product.category.name
+    format: (product) => product.category.name,
   },
   {
     content: "Số lượng trong kho",
@@ -198,15 +206,27 @@ export const productManagerHeader = [
     content: "Hình ảnh",
     id: "image",
     width: "w-2/12",
-    format: (product) => <div className="overflow-x-scroll flex">{product?.imageProducts.map(img => <img src={img.image} className="w-full inline"/>)}</div>
+    format: (product) => (
+      <div className="overflow-x-scroll flex">
+        {product?.imageProducts.map((img) => (
+          <img src={img.image} className="w-full inline" />
+        ))}
+      </div>
+    ),
   },
   {
     content: "Trạng thái",
     id: "status",
     width: "w-1/12",
-    format: (product) => <span className={`${product?.status?'text-green-500':'text-red-500'}`}>{product?.status?'Active':'Deactive'}</span>
+    format: (product) => (
+      <span
+        className={`${product?.status ? "text-green-500" : "text-red-500"}`}
+      >
+        {product?.status ? "Active" : "Deactive"}
+      </span>
+    ),
   },
-]
+];
 
 function ManagerTable({
   indexHeader = undefined,
@@ -214,6 +234,7 @@ function ManagerTable({
   headerTable,
   datas = [],
   isDelete = true,
+  isApprove = true,
   onApprove = () => {},
   approveContent = "",
   onDelete = () => {},
@@ -221,22 +242,24 @@ function ManagerTable({
   next = () => {},
 }) {
   const hidden = (event) => {
-    const div = event.target.parentNode.parentNode.querySelector("div")
-    console.log(event.target.parentNode.parentNode)
-    console.log(div)
-    if(!div.classList.contains('hidden')){
-      div.classList.add('hidden')
-    }else{
-      div.classList.remove('hidden')
+    const div = event.target.parentNode.parentNode.querySelector("div");
+    console.log(event.target.parentNode.parentNode);
+    console.log(div);
+    if (!div.classList.contains("hidden")) {
+      div.classList.add("hidden");
+    } else {
+      div.classList.remove("hidden");
     }
-  }
+  };
   return (
     <div className="bg-white">
       <table>
         <thead>
           <tr className={`${bg} px-5 uppercase`}>
             {indexHeader && (
-              <td className="py-3 text-center px-3 font-medium border border-black">{indexHeader}</td>
+              <td className="py-3 text-center px-3 font-medium border border-black">
+                {indexHeader}
+              </td>
             )}
             {headerTable.map((header) => (
               <th
@@ -245,41 +268,59 @@ function ManagerTable({
                 {header?.header ? header.header() : header?.content}
               </th>
             ))}
-            {isDelete && (
+            {isDelete || isApprove ? (
               <td className="px-3 w-2/12 text-center font-medium border border-black">
                 TÙY CHỈNH
               </td>
+            ) : (
+              ""
             )}
           </tr>
         </thead>
         <tbody>
-          {datas
-            ? datas?.map((data, index) => (
-                <tr className="font-medium">
-                  {indexHeader && (
-                    <td className="text-center py-10">{index + 1}</td>
-                  )}
-                  {headerTable.map((header) => (
-                    <td className="text-center py-5 px-5 border border-black">
-                      {header?.format
-                        ? header.format(data, next)
-                        : data[header?.id]}
-                    </td>
-                  ))}
-                  {isDelete && (
+          {datas != undefined &&
+            datas?.map((data, index) => (
+              <tr className="font-medium">
+                {indexHeader && (
+                  <td className="text-center py-10 border border-black">
+                    {index + 1}
+                  </td>
+                )}
+                {headerTable.map((header) => (
+                  <td className="text-center py-5 px-5 border border-black">
+                    {header?.format
+                      ? header.format(data, next)
+                      : data[header?.id]}
+                  </td>
+                ))}
+                {isDelete &&
+                  (isApprove && (
                     <td className="text-center border border-black ">
                       <button onClick={hidden}>
                         <Icon icon="charm:menu-kebab" />
                       </button>
                       <div className="hidden absolute p-3 border border-red-300 rounded-lg bg-white right-5">
-                        <MilMomBtn onClick={() => onApprove(data)} content={approveContent} className="mb-3 rounded-md" bg="bg-orange-300" />
-                        <MilMomBtn onClick={() => onDelete(data)} content={deleteContent} className="mb-3 rounded-md" text="text-white"/>
+                        {isApprove && (
+                          <MilMomBtn
+                            onClick={() => onApprove(data)}
+                            content={approveContent}
+                            className="mb-3 rounded-md"
+                            bg="bg-orange-300"
+                          />
+                        )}{" "}
+                        {isDelete && (
+                          <MilMomBtn
+                            onClick={() => onDelete(data)}
+                            content={deleteContent}
+                            className="mb-3 rounded-md"
+                            text="text-white"
+                          />
+                        )}
                       </div>
                     </td>
-                  )}
-                </tr>
-              ))
-            : ""}
+                  ))}
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

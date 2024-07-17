@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ManagerTable, { statisticalProductTable } from '../../components/ManagerTable'
 import Pagination from '../../components/Pagination'
 import MilMomBtn from '../../components/MilMomBtn'
+import { getService } from '../../api/services'
+import { getTopProduct } from '../../api/apis'
 
 export default function StatisticalProduct() {
+  const [top, setTop] = useState(10)
+  const [topProducts, setTopPtoducts] = useState([])
+
+  useEffect(() => {
+    getService(`${getTopProduct}/?top=${top}`).then(res => setTopPtoducts(res.data))
+  },[top])
+
   return (
     <div>
           <div className="flex justify-between items-center mb-20">
@@ -21,14 +30,15 @@ export default function StatisticalProduct() {
       <div className="flex justify-between items-center bg-red-200 py-1 px-5">
           <div className="font-medium text-xl">Bộ lọc</div>
           <div className="flex items-end">
-            <div className="mr-3">
-              <div className="text-sm mb-1">Thời gian bắt đầu</div>
-              <input type="date" className="p-3 rounded-lg" />
-            </div>
+           
 
-            <div className="mr-3">
-              <div className="text-sm mb-1">Thời gian bắt đầu</div>
-              <input type="date" className="p-3 rounded-lg" />
+            <div className="mr-3 flex items-center">
+              <div className=" mb-1 font-medium text-xl mx-2">TOP</div>
+              <select className='p-3' onChange={(event) => setTop(event.target.value)} value={top}>
+                <option>10</option>
+                <option>20</option>
+                <option>50</option>
+              </select>
             </div>
 
             <select className="p-3">
@@ -49,7 +59,7 @@ export default function StatisticalProduct() {
         </div>
 
         <div className='px-10 my-10'>
-            <ManagerTable datas={[]} headerTable={statisticalProductTable} indexHeader={"Top"}/>
+            <ManagerTable datas={topProducts} headerTable={statisticalProductTable} indexHeader={"Top"} isDelete={false} isApprove={false}/>
         </div>
 
         <Pagination />

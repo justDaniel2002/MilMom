@@ -10,7 +10,7 @@ namespace Milmom_Repository.IRepository
 {
     public interface ICategoryRepository : IBaseRepository<Category>
     {
-        Task<IEnumerable<Category>> SearchCategoryAsync(string search, int pageIndex, int pageSize);
+        Task<IEnumerable<Category>> SearchCategoryAsync(string? search, int pageIndex, int pageSize);
 
     }
 }

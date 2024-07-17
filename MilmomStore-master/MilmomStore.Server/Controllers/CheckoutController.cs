@@ -34,7 +34,7 @@ namespace MilmomStore.Server.Controllers
             _configuration = configuration;
         }
 
-        /*[Authorize(Roles = "Customer, Staff")]*/
+        [Authorize(Roles = "Customer")]
         [HttpPost("createOrder")]
         [ProducesResponseType(StatusCodes.Status302Found)]
         public async Task<string> CreateOrder(string accountId, [FromBody] ShippingRequest shippingRequest)
@@ -57,7 +57,7 @@ namespace MilmomStore.Server.Controllers
             return _vnPayService.CreatePaymentUrl(HttpContext, vnPayModel);
         }
 
-        /*[Authorize(Roles = "Customer, Staff")]*/
+        [Authorize(Roles = "Customer, Staff")]
         [HttpPost("createOrder-cod")]
         public async Task<Order> CreateOrderWithPaymentMethodCod(string accountId, [FromBody] ShippingRequest shippingRequest)
         {
@@ -65,7 +65,7 @@ namespace MilmomStore.Server.Controllers
             return order;
         }
 
-        /*[Authorize(Roles = "Customer, Staff")]*/
+        [Authorize(Roles = "Customer")]
         [HttpGet("vnpay-return")]
         public async Task<IActionResult> HandleVnPayReturn([FromQuery] VnPayReturnModel model)
         {

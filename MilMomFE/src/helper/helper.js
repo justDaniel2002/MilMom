@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import { setAuthToken } from "../api/axios.config";
 
 export function isValidEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -11,7 +12,10 @@ export const getAccountFS = () => {
   if (account) {
     try {
       const accJson = JSON.parse(account);
-      if (accJson?.userName) return accJson;
+      if (accJson?.userName) {
+        setAuthToken(accJson.token) 
+        return accJson;
+      }
     } catch (error) {
       console.log(error);
     }

@@ -64,7 +64,7 @@ namespace Milmom_Service.Service
                 result);
         }
 
-        public async Task<BaseResponse<IEnumerable<GetAllCategoryResponse>>> GetSearchCategoryFromBase(string search, int pageIndex, int pageSize)
+        public async Task<BaseResponse<IEnumerable<GetAllCategoryResponse>>> GetSearchCategoryFromBase(string? search, int pageIndex, int pageSize)
         {
             IEnumerable<Category> categories = await _categoryRepository.SearchCategoryAsync(search, pageIndex, pageSize);
             var category = _mapper.Map<IEnumerable<GetAllCategoryResponse>>(categories);

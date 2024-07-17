@@ -90,7 +90,7 @@ function ProductManager() {
           />
         </div>
         <ManagerTable
-          approveContent="Sưa"
+          approveContent="Sửa"
           deleteContent="Xóa"
           datas={products}
           headerTable={productManagerHeader}

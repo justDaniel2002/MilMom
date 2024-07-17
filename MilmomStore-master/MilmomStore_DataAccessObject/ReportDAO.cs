@@ -28,10 +28,19 @@ namespace MilmomStore_DataAccessObject
 
         public async Task<Report> GetReportByIdAsync(int id)
         {
-            return await _context.Set<Report>()
+            if (id == null || id <= 0)
+            {
+                throw new ArgumentNullException($"id {id} not found");
+            }
+             var entity = await _context.Set<Report>()
                 .Include(r => r.AccountsApplication)
                 .Include(r => r.Products)
                 .SingleOrDefaultAsync(r => r.ReportID == id);
+            if (entity == null)
+            {
+                throw new ArgumentNullException($"Entity with id {id} not found");
+            }
+            return entity;
         }
 
         public async Task<IEnumerable<Report>> SearchReportAsync(string search, int pageIndex, int pageSize)

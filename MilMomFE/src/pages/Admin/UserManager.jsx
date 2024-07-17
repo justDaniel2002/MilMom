@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { accountList, accountType } from "../../data/data";
 import MilMomBtn from "../../components/MilMomBtn";
 import Pagination from "../../components/Pagination";
 import ManagerTable, { userManagerHeader } from "../../components/ManagerTable";
+import { getService } from "../../api/services";
+import { getAllAccount } from "../../api/apis";
 
 export default function UserManager() {
+  const [accounts, setAccounts] = useState([])
+  useEffect(() => {
+    getService(getAllAccount).then(res => setAccounts(res))
+  },[])
   return (
     <div className="py-5">
         <div className="py-5 px-20 bg-white rounded-lg min-h-screen text-sm">
@@ -31,7 +37,7 @@ export default function UserManager() {
           className="rounded-lg"
         />
       </div>
-      <ManagerTable datas={accountList} headerTable={userManagerHeader} />
+      <ManagerTable datas={accounts} headerTable={userManagerHeader} isDelete={false} approveContent="Thay đổi trạng thái"/>
 
       <div className="mt-20">
         <Pagination />

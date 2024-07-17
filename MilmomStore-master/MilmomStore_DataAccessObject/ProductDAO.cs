@@ -110,6 +110,10 @@ namespace MilmomStore_DataAccessObject
 
         public async Task<List<(string ProductName, int QuantitySold)>> GetTopProductsSoldInMonthAsync(int top)
         {
+            if(top == 0 || top == null)
+            {
+                throw new ArgumentException($"Please input/ correct top!");
+            }
             /*DateTime startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             DateTime endDate = startDate.AddMonths(1).AddDays(-1);*/
             // Lấy ngày hiện tại

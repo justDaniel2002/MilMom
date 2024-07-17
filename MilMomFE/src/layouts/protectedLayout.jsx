@@ -8,7 +8,7 @@ export default function ProtectedLayout() {
 
   return (
     <>
-    {account?<Outlet />:<Navigate to={'/login'}/>}
+    {account?<Outlet />:<Navigate to={'/'}/>}
     </>
   )
 }

@@ -38,7 +38,7 @@ namespace Milmom_Repository.Repository
             return _categoryDAO.GetByIdAsync(id);
         }
 
-        public Task<IEnumerable<Category>> SearchCategoryAsync(string search, int pageIndex, int pageSize)
+        public Task<IEnumerable<Category>> SearchCategoryAsync(string? search, int pageIndex, int pageSize)
         {
             return _categoryDAO.SearchCategoryAsync(search, pageIndex, pageSize);
         }

@@ -127,6 +127,29 @@ export const sideBarAdminData = [
     }
 ]
 
+export const sideBarProfileData = [
+    {
+        content:"Hồ sơ",
+        icon: <Icon icon="gg:profile" />,
+        link:"/profile"
+    },
+    {
+        content:"Chỉnh sửa hồ sơ",
+        icon: <Icon icon="material-symbols:edit" />,
+        link:"/profile/editProfile"
+    },
+    {
+        content:"Đổi mật khẩu",
+        icon: <Icon icon="carbon:password" />,
+        link:"/profile/editPassword"
+    },
+    {
+        content:"Đơn mua",
+        icon: <Icon icon="lets-icons:order" />,
+        link:"/profile/order"
+    }
+]
+
 export const sideBarStaffData = [
     {
         content:"Đơn hàng trong ngày",
@@ -275,7 +298,7 @@ export const staticDashboard = [
         content: "Lợi Nhuận Thu Được Trong Tuần",
         value:"totalProfit",
         iconColor:"bg-yellow-300",
-        format: (value) => `${value.toFixed(2)}%`
+        format: (value) => `${value}%`
     },
     {
         icon: <Icon icon="uil:money-withdraw" />,

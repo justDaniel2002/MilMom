@@ -18,28 +18,28 @@ namespace MilmomStore.Server.Controllers
             _orderService = orderService;
         }
 
-        /*[Authorize(Roles = "Customer")]*/
+        [Authorize(Roles = "Customer")]
         [HttpGet("get-all-orders-by-id/{accountId}")]
         public async Task<BaseResponse<IEnumerable<OrderResponse>>> GetAllOrdersByAccountIdAsync(string accountId)
         {
             return await _orderService.GetAllOrdersByAccountIdAsync(accountId);
         }
 
-        /*[Authorize(Roles = "Staff, Manager, Customer")]*/
+        [Authorize(Roles = "Staff, Customer")]
         [HttpGet("get-all-orders")]
         public async Task<BaseResponse<IEnumerable<OrderResponse>>> GetAllOrdersAsync(DateTime? date, OrderStatus? status)
         {
             return await _orderService.GetAllOrderAsync(date, status);
         }
 
-        /*[Authorize(Roles = "Staff, Manager, Customer")]*/
+        [Authorize(Roles = "Staff, Customer")]
         [HttpPut("update-order-status")]
         public async Task<BaseResponse<OrderResponse>> ChangeOrderStatus(int orderId, OrderStatus status)
         {
             return await _orderService.ChangeOrderStatus(orderId, status);
         }
 
-        /*[Authorize(Roles = "Staff, Manager, Customer")]*/
+        [Authorize(Roles = "Staff, Customer")]
         [HttpGet("get-order-by-id/{orderId}")]
         public async Task<BaseResponse<OrderResponse>> GetOrderByIdAsync(int orderId)
         {
@@ -47,31 +47,35 @@ namespace MilmomStore.Server.Controllers
         }
 
         //for admin Dashboard
-        /*[Authorize(Roles = "")]*/
+        [Authorize(Roles = "Admin")]
         [HttpGet("adminDashBoard/GetTotalAmountTotalProductsOfWeek")]
         public async Task<BaseResponse<GetTotalAmountTotalProducts>> GetTotalAmountTotalProductsOfWeek()
         {
             return await _orderService.GetTotalAmountTotalProductsOfWeek();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("adminDashBoard/GetStaticOrders")]
         public async Task<BaseResponse<GetStaticOrders>> GetStaticOrders()
         {
             return await _orderService.GetStaticOrders();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("adminDashBoard/GetTopProductsSoldInMonth")]
         public async Task<BaseResponse<GetTopProductsSoldInMonth>> GetTopProductsSoldInMonthAsync()
         {
             return await _orderService.GetTopProductsSoldInMonthAsync();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("adminDashBoard/GetStoreRevenueByMonth")]
         public async Task<BaseResponse<GetStoreRevenueByMonth>> GetStoreRevenueByMonthAsync()
         {
             return await _orderService.GetStoreRevenueByMonthAsync();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("adminDashBoard/GetTotalOrdersTotalOrdersAmount")]
         public async Task<BaseResponse<List<GetTotalOrdersTotalOrdersAmount>>> GetTotalOrdersTotalOrdersAmountAsync
             (DateTime startDate, DateTime endDate, string? timeSpanType)
